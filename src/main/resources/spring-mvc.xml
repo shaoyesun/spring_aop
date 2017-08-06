@@ -21,7 +21,8 @@
     <!--advice增强处理-->
     <!--<bean id="timeHandler" class="com.aop.service.TimeHandlerByXml"></bean>
 
-    <aop:config>
+    &lt;!&ndash;强制使用CGLIB来实现AOP的时候，需要配置spring.aop.proxy-target-class=true&ndash;&gt;
+    <aop:config proxy-target-class="true">
         &lt;!&ndash;切面,用于组织多个增强处理(advice)&ndash;&gt;
         <aop:aspect id="time" ref="timeHandler">
             &lt;!&ndash;切入点(PointCut),可以插入增强处理的链接点&ndash;&gt;
@@ -36,7 +37,8 @@
     </aop:config>-->
 
     <!--通过annotation实现代理-->
-    <aop:aspectj-autoproxy/>
+    <!--强制使用CGLIB来实现AOP的时候，需要配置spring.aop.proxy-target-class=true-->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
 
     <!--@ResponseBody返回编码设定-->
     <mvc:annotation-driven>
