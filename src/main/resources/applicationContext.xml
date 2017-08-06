@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--配置被代理对象-->
+    <bean id="serviceImpl" class="com.aop.service.proxy.ServiceImpl">
+        <property name="name" value="spring aop"></property>
+    </bean>
+
+    <!--配置前置通知-->
+    <bean id="myAdvice" class="com.aop.service.proxy.MyAdvice"></bean>
+
+    <!--配置代理对象-->
+    <bean id="proxyFactoryBean" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <!--配置代理接口集-->
+        <property name="proxyInterfaces">
+            <list>
+                <value>com.aop.service.proxy.Service</value>
+            </list>
+        </property>
+        <!--把通知织入代理对象-->
+        <property name="interceptorNames">
+            <list>
+                <!--前置通知和代理对象关联-->
+                <value>myAdvice</value>
+            </list>
+        </property>
+        <!--配置被代理对象-->
+        <property name="target" ref="serviceImpl"></property>
+    </bean>
+</beans>
